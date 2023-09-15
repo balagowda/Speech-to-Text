@@ -11,13 +11,18 @@ const Speech = () => {
   const [speak, setSpeak] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const { transcript, browserSupportsSpeechRecognition } =
-    useSpeechRecognition();
-  const startListening = () =>
-    SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
-  const stopListening = () => SpeechRecognition.stopListening();
+  const { transcript, browserSupportsSpeechRecognition, resetTranscript } = useSpeechRecognition();
 
-  const [isCopied, setCopied] = useClipboard(transcript);
+  const startListening = () => {
+    SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
+  };
+  const stopListening = () => {
+    SpeechRecognition.stopListening();
+  };
+
+  const [isCopied, setCopied] = useClipboard(transcript, {
+    successDuration: 2000,
+  });
 
   const handleClick = () => {
     setSpeak(!speak);
@@ -31,16 +36,20 @@ const Speech = () => {
   const handleOpen = () => {
     setOpen(true);
 
-    // Automatically close the tooltip after 2 seconds
+    // Automatically close the tooltip after 1.5 seconds
     setTimeout(() => {
       setOpen(false);
     }, 1500);
   };
 
-  const handleClickCopy =()=>{
-      setCopied();
-      handleOpen();
-  } 
+  const handleClickCopy = () => {
+    setCopied();
+    handleOpen();
+  };
+
+  const handleClear = () => {
+    resetTranscript();
+  };
 
   if (!browserSupportsSpeechRecognition) {
     return null;
@@ -53,9 +62,15 @@ const Speech = () => {
       <div className="bottom-div">
         {transcript && !speak && (
           <div className="bottom-child btn1">
-            <Tooltip title="copied" arrow placement="top" open={open} onClose={() => setOpen(false)}>
+            <Tooltip
+              title="copied"
+              arrow
+              placement="top"
+              open={open}
+              onClose={() => setOpen(false)}
+            >
               <button className="btn-child" onClick={handleClickCopy}>
-                Copy
+                {isCopied ? "Copied!" : "Copy"}
               </button>
             </Tooltip>
           </div>
@@ -67,6 +82,14 @@ const Speech = () => {
             <MicIcon className="mic" />
           </div>
         </div>
+
+        {transcript && !speak && (
+          <div className="bottom-child btn-3">
+            <button className="btn-clear" onClick={handleClear}>
+              Clear
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
