@@ -50,10 +50,96 @@
   overflow: hidden;
 }
 
-.bottom-div{
-  height: 100px;
-  background-color: black;
+.content{
+  width: 93%;
+  height: 80%;
+  margin: 0 auto;
+  /* border-radius: 50px 50px 0 0; */
+  margin-top: 10px;
+  padding: 7px;
+  overflow-y: scroll;
+  font-size: 22px;
+}
+
+.bottom-div {
+  height: 15%;
   position: absolute;
   bottom: 0;
   width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.bottom-child {
+  margin-right: 40px;
+  padding: 5px;
+}
+
+.btn1 {
+  width: 250px;
+  height: 55px;
+}
+
+.btn-child {
+  background-color: #3bde03;
+  border-radius: 50px;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: none;
+  font-weight: 600;
+  padding: 5px;
+  color: white;
+  font-size: large;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.btn-2{
+  position: relative;
+}
+
+.front{
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  text-align: center;
+  background-color: black;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
+    rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
+    rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+    position: relative;
+    z-index: 2;
+    padding: 3px;
+}
+
+.behind {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  z-index: 1;
+}
+
+.front .mic {
+  width: 80%;
+  height: 100%;
+  color: white;
+  position: relative; 
+}
+
+.animate {
+  animation: pulse 1s infinite alternate;
+  background-color: rgb(73, 79, 85,.7);
+  border-radius: 50%;
+}
+
+@keyframes pulse {
+  0% {
+      transform: scale(1);
+  }
+  100% {
+      transform: scale(1.7);
+  }
 }
